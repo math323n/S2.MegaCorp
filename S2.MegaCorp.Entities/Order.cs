@@ -14,6 +14,11 @@ namespace S2.MegaCorp.Entities
             OrderDate = orderDate;
             ShipmentDate = shipmentDate;
 
+            (bool isValid, string message) = ValidateDates(orderDate, shipmentDate);
+            if(!isValid)
+            {
+                throw new ArgumentException(message);
+            }
         }
 
         public virtual int Id
@@ -25,7 +30,10 @@ namespace S2.MegaCorp.Entities
 
             set
             {
-                id = value;
+                if(value != id)
+                {
+                    id = value;
+                }
             }
         }
 
@@ -38,11 +46,6 @@ namespace S2.MegaCorp.Entities
 
             set
             {
-                (bool datesAreValid, string message) datesValidationresult = ValidateDates(value, shipmentDate);
-                if(!datesValidationresult.datesAreValid)
-                {
-                    throw new InvalidOperationException(datesValidationresult.message);
-                }
                 if(value != orderDate)
                 {
                     orderDate = value;
@@ -60,11 +63,6 @@ namespace S2.MegaCorp.Entities
 
             set
             {
-                (bool datesAreValid, string message) datesValidationresult = ValidateDates(orderDate, value);
-                if(!datesValidationresult.datesAreValid)
-                {
-                    throw new InvalidOperationException(datesValidationresult.message);
-                }
                 if(value != shipmentDate)
                 {
                    shipmentDate = value;
