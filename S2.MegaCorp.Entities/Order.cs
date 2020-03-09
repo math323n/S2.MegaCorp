@@ -4,9 +4,9 @@ namespace S2.MegaCorp.Entities
 {
     public class Order
     {
-        int id;
-        DateTime orderDate;
-        DateTime shipmentDate;
+        protected int id;
+        protected DateTime orderDate;
+        protected DateTime shipmentDate;
 
         public Order(int id, DateTime orderDate, DateTime shipmentDate)
         {
@@ -22,7 +22,7 @@ namespace S2.MegaCorp.Entities
 
         }
 
-        public int Id
+        public virtual int Id
         {
             get
             {
@@ -35,7 +35,7 @@ namespace S2.MegaCorp.Entities
             }
         }
 
-        public DateTime OrderDate
+        public virtual DateTime OrderDate
         {
             get
             {
@@ -46,17 +46,17 @@ namespace S2.MegaCorp.Entities
             {
                 if(shipmentDate != default)
                 {
-                    (bool datesAreValid, string message) datesValidationresult = ValidateDates(orderDate, shipmentDate);
-                    if(!datesValidationresult.datesAreValid)
+                    (bool datesAreValid, string message) = ValidateDates(orderDate, shipmentDate);
+                    if(!datesAreValid)
                     {
-                        throw new InvalidOperationException(datesValidationresult.message);
+                        throw new InvalidOperationException(message);
                     }
                     orderDate = value;
                 }
             }
         }
 
-        public DateTime ShipmentDate
+        public virtual DateTime ShipmentDate
         {
             get
             {

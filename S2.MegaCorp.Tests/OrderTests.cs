@@ -12,14 +12,14 @@ namespace S2.MegaCorp.Tests
             // Arrange:
             int id = 1;
             DateTime orderDate = new DateTime(2020, 03, 09);
-            DateTime shipmentDate = orderDate.AddDays(1);
+            DateTime shipmentDate = new DateTime(2020, 03, 13);
             Order order;
 
             // Act:
             order = new Order(id, orderDate, shipmentDate);
 
             // Assert:
-            Assert.True(order.ShipmentDate > order.OrderDate);
+            Assert.True(order.ShipmentDate < order.OrderDate);
         }
 
         [Fact]
