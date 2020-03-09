@@ -65,7 +65,7 @@ namespace S2.MegaCorp.Entities
             {
                 if(value != shipmentDate)
                 {
-                   shipmentDate = value;
+                    shipmentDate = value;
                 }
 
             }
