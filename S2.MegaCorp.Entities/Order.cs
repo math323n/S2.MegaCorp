@@ -14,12 +14,6 @@ namespace S2.MegaCorp.Entities
             OrderDate = orderDate;
             ShipmentDate = shipmentDate;
 
-            (bool datesAreValid, string message) = ValidateDates(orderDate, shipmentDate);
-            if(!datesAreValid)
-            {
-                throw new ArgumentException(message);
-            }
-
         }
 
         public virtual int Id
@@ -44,15 +38,16 @@ namespace S2.MegaCorp.Entities
 
             set
             {
-                if(shipmentDate != default)
+                (bool datesAreValid, string message) datesValidationresult = ValidateDates(value, shipmentDate);
+                if(!datesValidationresult.datesAreValid)
                 {
-                    (bool datesAreValid, string message) = ValidateDates(orderDate, shipmentDate);
-                    if(!datesAreValid)
-                    {
-                        throw new InvalidOperationException(message);
-                    }
+                    throw new InvalidOperationException(datesValidationresult.message);
+                }
+                if(value != orderDate)
+                {
                     orderDate = value;
                 }
+
             }
         }
 
@@ -65,15 +60,16 @@ namespace S2.MegaCorp.Entities
 
             set
             {
-                if(orderDate != default)
+                (bool datesAreValid, string message) datesValidationresult = ValidateDates(orderDate, value);
+                if(!datesValidationresult.datesAreValid)
                 {
-                    (bool datesAreValid, string message) datesValidationresult = ValidateDates(orderDate, shipmentDate);
-                    if(!datesValidationresult.datesAreValid)
-                    {
-                        throw new InvalidOperationException(datesValidationresult.message);
-                    }
-                    shipmentDate = value;
+                    throw new InvalidOperationException(datesValidationresult.message);
                 }
+                if(value != shipmentDate)
+                {
+                   shipmentDate = value;
+                }
+
             }
         }
 

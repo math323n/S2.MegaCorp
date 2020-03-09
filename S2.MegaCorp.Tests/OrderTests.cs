@@ -7,19 +7,19 @@ namespace S2.MegaCorp.Tests
     public class OrderTests
     {
         [Fact]
-        public void OrderDatePreceedsShipmentDate()
+        public void ShipmentDateGreaterThanOrderDate()
         {
             // Arrange:
             int id = 1;
             DateTime orderDate = new DateTime(2020, 03, 09);
-            DateTime shipmentDate = new DateTime(2020, 03, 13);
-            Order order;
+            DateTime shipmentDate = new DateTime(2021, 03, 13);
 
             // Act:
-            order = new Order(id, orderDate, shipmentDate);
+            Order order = new Order(id, orderDate, shipmentDate);
+
 
             // Assert:
-            Assert.True(order.ShipmentDate < order.OrderDate);
+            Assert.True(order.ShipmentDate > order.OrderDate);
         }
 
         [Fact]
