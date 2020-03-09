@@ -14,10 +14,10 @@ namespace S2.MegaCorp.Entities
             OrderDate = orderDate;
             ShipmentDate = shipmentDate;
 
-            (bool datesAreValid, string message) datesValidationresult = ValidateDates(orderDate, shipmentDate);
-            if(!datesValidationresult.datesAreValid)
+            (bool datesAreValid, string message) = ValidateDates(orderDate, shipmentDate);
+            if(!datesAreValid)
             {
-                throw new ArgumentException(datesValidationresult.message);
+                throw new ArgumentException(message);
             }
 
         }
@@ -81,11 +81,11 @@ namespace S2.MegaCorp.Entities
         {
             if(shipmentDate > orderDate)
             {
-                return (true, String.Empty);
+                return (true, string.Empty);
             }
             else
             {
-                return (false, "Invalid dates");
+                return (false, "Invalid dates.");
             }
         }
     }
